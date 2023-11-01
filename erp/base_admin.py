@@ -85,13 +85,27 @@ class BaseAdmin(CloneModelAdminMixin, SimpleHistoryAdmin):
         if db_field.name == 'category':
             if request and not request.user.is_superuser:
                 kwargs['queryset'] = ProductCategory.objects.filter(
-                    Q(companies__users=request.user) |
-                    Q(companies__chain__users=request.user)
+                    Q(company__users=request.user) |
+                    Q(company__chain__users=request.user)
                 ).distinct().all()
 
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == 'companies':
+            if request and not request.user.is_superuser:
+                kwargs['queryset'] = Company.objects.filter(
+                    Q(users=request.user) |
+                    Q(chain__users=request.user)
+                ).distinct().all()
+
+        if db_field.name == 'customers':
+            if request and not request.user.is_superuser:
+                kwargs['queryset'] = Customer.objects.filter(
+                    Q(company__users=request.user) |
+                    Q(company__chain__users=request.user)
+                ).distinct().all()
+
         if db_field.name == 'users':
             if request and not request.user.is_superuser:
                 kwargs['queryset'] = User.objects.filter(

@@ -1,6 +1,9 @@
 from collections.abc import Iterator
 from typing import Any
+
 from django import forms
+from django.db.models import Q
+from django.db.models.fields.related import ForeignKey
 from django.contrib import admin
 from django.http.request import HttpRequest
 from django.urls import path
@@ -153,6 +156,16 @@ class ProductCategoryAdmin(BaseAdmin):
     list_display = ('id', 'name', 'parent')
     list_filter = ('name', 'parent')
     search_fields = ('name', 'parent')
+
+    def formfield_for_foreignkey(self, db_field: ForeignKey[Any], request: HttpRequest | None, **kwargs: Any) -> forms.ModelChoiceField | None:  # noqa
+        if db_field.name == 'parent':
+            if request and not request.user.is_superuser:
+                kwargs['queryset'] = ProductCategory.objects.filter(
+                    Q(company__users=request.user) |
+                    Q(company__chain__users=request.user)
+                ).distinct().all()
+
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 admin.site.register(ProductCategory, ProductCategoryAdmin)

@@ -27,6 +27,7 @@ class Company(BaseModel):
     tax_number = models.CharField(
         max_length=255,
         help_text=_('Tax Number for invoices'),
+        verbose_name=_('Tax Number'),
     )
     phone = models.CharField(
         max_length=255,
@@ -134,6 +135,9 @@ class Company(BaseModel):
     history = HistoricalRecords()
 
     def __str__(self):
+        if self.fantasy_name:
+            return self.fantasy_name
+
         return self.name
 
     class Meta:

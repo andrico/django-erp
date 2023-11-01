@@ -1,5 +1,6 @@
 from typing import Any
 from django.contrib import admin
+from django.db.models import Q
 from django.http import HttpResponseNotFound
 from django.http.request import HttpRequest
 from django.utils.safestring import mark_safe
@@ -9,6 +10,7 @@ from django.utils.translation import gettext as _
 from erp.invoice.models import Invoice, InvoiceItem
 from erp.base_admin import BaseAdmin
 from erp.invoice.helpers import render_to_pdf
+from erp.product.models import Product
 from erp.tax.models import total_taxes_grouped
 
 
@@ -16,6 +18,16 @@ class InvoiceItemInline(admin.TabularInline):
     model = InvoiceItem
     extra = 1
     exclude = ('is_removed', )
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'product':
+            if request and not request.user.is_superuser:
+                kwargs['queryset'] = Product.objects.filter(
+                    Q(company__users=request.user) |
+                    Q(company__chain__users=request.user)
+                ).distinct().all()
+
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 class InvoiceAdmin(BaseAdmin):
