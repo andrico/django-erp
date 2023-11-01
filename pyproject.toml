@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "erp"
+name = "django-erp"
 version = "0.1.0"
 description = ""
 authors = ["Nicolás Guglielmi Manent <nicolas.guglielmi@gmail.com>"]
