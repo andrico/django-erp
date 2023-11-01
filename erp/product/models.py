@@ -75,6 +75,8 @@ class ProductImage(BaseModel):
         verbose_name=_('Is Primary'),
     )
 
+    company = None
+
     history = HistoricalRecords()
 
     def __str__(self):
@@ -110,6 +112,8 @@ class ProductOption(BaseModel):
         max_length=255,
         verbose_name=_('Value'),
     )
+
+    company = None
 
     history = HistoricalRecords()
 
@@ -203,6 +207,8 @@ class ProductPrice(BaseModel):
         null=True,
         verbose_name=_('Valid To'),
     )
+
+    company = None
 
     history = HistoricalRecords()
 

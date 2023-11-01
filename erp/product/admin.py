@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.http.request import HttpRequest
 from django.urls import path
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext as _
 from jet.admin import CompactInline
 
 from erp.product.models import (
@@ -81,7 +82,7 @@ class ProductAdmin(BaseAdmin):
             return ''
         return self.make_link(
             'admin:product_product_add',
-            label='Add Variant',
+            label=_('Add Variant'),
             params={
                 'variant_of': obj.id,
                 'name': obj.name + ' Variant',
@@ -89,7 +90,7 @@ class ProductAdmin(BaseAdmin):
             },
             as_button=True,
         )
-    add_variant.short_description = 'Add Variant'
+    add_variant.short_description = _('Add Variant')
 
     @mark_safe
     def variants(self, obj):
@@ -97,6 +98,7 @@ class ProductAdmin(BaseAdmin):
             self.make_link('admin:product_product_change', v.id, v.name)
             for v in obj.variants.all()
         ])
+    variants.short_description = _('Variants')
 
     def get_urls(self):
         urls = super().get_urls()
