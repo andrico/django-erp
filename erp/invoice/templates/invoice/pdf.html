@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - {{invoice.formatted_invoice_number}}</title>
+</head>
+<body>
+    <div>
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <img src="{{logo}}" alt="Logo" width="100" height="100" />
+                        </td>
+                        <td>
+                            <div style="margin-bottom: 5px;">
+                                <b>FACTURA</b>
+                            </div>
+                            <div style="font-size: 24px; margin-bottom: 5px;">
+                                <b>{{invoice.formatted_invoice_number}}</b>
+                            </div>
+                            Fecha: {{invoice.date | date:"d/m/Y"}}<br />
+                            {% if invoice.due_date %}
+                                {{invoice.due_date | date:"d/m/Y"}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <table> <br />
+            <tbody>
+                <tr>
+                    <td>
+                        <div>
+                            <h2>{{company.name}}</h2>
+                            NIF / CIF: {{company.tax_number}}<br />
+                            {% autoescape on %}
+                                {{company.get_address | linebreaksbr}}
+                            {% endautoescape %}
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h2>Cliente</h2>
+                            <strong>{{customer.name}}</strong><br />
+                            NIF / CIF: {{customer.tax_number}}<br />
+                            {% autoescape on %}
+                                {{customer.address | linebreaksbr}}
+                            {% endautoescape %}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <br />
+        <div>
+            <table class="table-light">
+                <thead>
+                    <tr>
+                        <th width="60%" align="left">Producto</th>
+                        <th align="center">Cantidad</th>
+                        <th align="center">Precio</th>
+                        <th align="center">IVA</th>
+                        <th align="right">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr style="border-bottom: 1px solid #e1e1e1; padding-bottom: 2px; padding-top: 5px;">
+                            <td>{{item.product.name}}</td>
+                            <td align="center">{{item.quantity}}</td>
+                            <td align="center">€ {{item.price}}</td>
+                            <td align="center">{{item.product.tax.name}}</td>
+                            <td align="right">€ {{item.subtotal}}</td>
+                        </tr>
+                    {% endfor %}
+
+                    <tr style="padding-bottom: 2px; padding-top: 5px;">
+                        <td colspan="5"></td>
+                    </tr>
+
+                    {% for name, amount in taxes.items %}
+                        {% if amount != 0 %}
+                            <tr style="padding-bottom: 2px; padding-top: 2px;">
+                                <td colspan="4" align="right">{{name}}</td>
+                                <td align="right">€ {{amount}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+
+                    <tr style="padding-bottom: 2px; padding-top: 2px;">
+                        <td colspan="4" align="right"><h2>Total</h2></td>
+                        <td align="right"><h2>€ {{invoice.total}}</h2></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div>   <br />
+            <h2>Notas:</h2>
+            <p>{{company.get_notes | linebreaksbr}}</p>
+            {% if invoice.notes %}
+                <p>{{invoice.get_notes | linebreaksbr}}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
