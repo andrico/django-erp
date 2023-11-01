@@ -8,7 +8,7 @@ from erp.base_admin import BaseAdmin
 class CustomerAdmin(BaseAdmin):
     list_display = ('name', 'phone', 'email', 'address', 'created', 'modified')  # noqa
     search_fields = ('name', 'phone', 'email', 'address')
-    list_filter = ('created', 'modified')
+    list_filter = ('company', 'created')
 
     fieldsets = (
         (None, {'fields': ('name', 'email', 'phone', 'users', 'company')}),

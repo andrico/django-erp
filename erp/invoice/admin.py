@@ -33,8 +33,8 @@ class InvoiceItemInline(admin.TabularInline):
 class InvoiceAdmin(BaseAdmin):
     inlines = [InvoiceItemInline]
     list_display = ('formatted_invoice_number', 'customer', 'date', 'subtotal', 'total', 'paid', 'download')  # noqa
-    list_filter = ('customer', 'date', 'paid')
-    search_fields = ('customer', 'date', 'paid')
+    list_filter = ('company', 'customer', 'date', 'paid')
+    search_fields = ('customer__name', 'date', 'paid')
     list_display_links = ('formatted_invoice_number', 'customer')
 
     exclude = ('invoice_number', )

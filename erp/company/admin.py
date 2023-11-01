@@ -10,7 +10,7 @@ from erp.base_admin import BaseAdmin
 class CompanyAdmin(BaseAdmin):
     list_display = ('get_fantasy_name', 'get_chain', 'phone', 'email', 'address', 'created', 'modified')  # noqa
     search_fields = ('name', 'phone', 'email', 'address')
-    list_filter = ('created', 'modified')
+    list_filter = ('chain', 'created')
 
     @mark_safe
     def get_chain(self, obj):

@@ -14,7 +14,7 @@ class CustomUserChangeForm(UserChangeForm):
 
 class UserAdmin(BaseAdmin, UserAdmin):
     list_display = ('email', 'full_name', 'is_staff', 'is_superuser')  # noqa
-    list_filter = ('is_staff', 'is_superuser')
+    list_filter = ('companies', 'is_staff', 'is_superuser')
     search_fields = ('email',)
     form = CustomUserChangeForm
     list_display_links = ('email', 'full_name')
