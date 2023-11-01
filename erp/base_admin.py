@@ -1,6 +1,10 @@
-from simple_history.admin import SimpleHistoryAdmin
+from django.db.models import Q
 from django.urls import reverse
+from simple_history.admin import SimpleHistoryAdmin
 from model_clone import CloneModelAdminMixin
+
+from erp.company.models import Company
+from erp.user.models import User
 
 
 class BaseAdmin(CloneModelAdminMixin, SimpleHistoryAdmin):
@@ -18,7 +22,23 @@ class BaseAdmin(CloneModelAdminMixin, SimpleHistoryAdmin):
     def get_queryset(self, request):
         if request.user.is_superuser:
             return super().get_queryset(request)
-        return super().get_queryset(request).objects_not_deleted.all()
+
+        if self.model == Company:
+            return super().get_queryset(request).filter(
+                Q(users=request.user) |
+                Q(chain__users=request.user)
+            ).distinct().all()
+
+        if self.model == User:
+            return super().get_queryset(request).filter(
+                Q(companies__users=request.user) |
+                Q(companies__chain__users=request.user)
+            ).distinct().all()
+
+        return super().get_queryset(request).filter(
+            Q(company__users=request.user) |
+            Q(company__chain__users=request.user)
+        ).all()
 
     def make_link(self, to, id=None, label=None, params=None, as_button=False):
         class_name = 'button' if as_button else ''

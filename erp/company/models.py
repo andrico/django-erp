@@ -9,16 +9,45 @@ from erp.base_model import BaseModel
 class Company(BaseModel):
     company = None
 
-    name = models.CharField(max_length=255)
-    email = models.EmailField(blank=True, null=True)
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+    email = models.EmailField(
+        blank=True,
+        null=True,
+        verbose_name=_('Email'),
+    )
+    fantasy_name = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name=_('Fantasy Name'),
+    )
     tax_number = models.CharField(
         max_length=255,
         help_text=_('Tax Number for invoices'),
     )
-    phone = models.CharField(max_length=255, blank=True, null=True)
-    address = models.TextField()
-    notes = models.TextField(blank=True, null=True)
-    logo = models.ImageField(upload_to='company_logos', blank=True, null=True)
+    phone = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name=_('Phone Number'),
+    )
+    address = models.TextField(
+        verbose_name=_('Address'),
+    )
+    notes = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name=_('Notes'),
+    )
+    logo = models.ImageField(
+        upload_to='company_logos',
+        blank=True,
+        null=True,
+        verbose_name=_('Logo'),
+    )
 
     @property
     def get_logo(self):
@@ -62,6 +91,20 @@ class Company(BaseModel):
             tax_number = self.chain.tax_number
         return tax_number
 
+    @property
+    def get_name(self):
+        name = self.name
+        if not name:
+            name = self.chain.name
+        return name
+
+    @property
+    def get_fantasy_name(self):
+        fantasy_name = self.fantasy_name
+        if not fantasy_name:
+            fantasy_name = self.chain.fantasy_name
+        return fantasy_name if fantasy_name else self.get_name
+
     format_invoice_number = models.CharField(
         max_length=255,
         help_text=_('Format: {year}-{month}-{day}-{invoice_number}'),
@@ -94,4 +137,5 @@ class Company(BaseModel):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Companies'
+        verbose_name = _('Company')
+        verbose_name_plural = _('Companies')

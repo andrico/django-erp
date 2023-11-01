@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext as _
 from simple_history.models import HistoricalRecords
 
 from erp.base_model import BaseModel
@@ -6,9 +7,19 @@ from erp.product.models import Product, get_product_price
 
 
 class Tax(BaseModel):
-    name = models.CharField(max_length=255)
-    percentage = models.DecimalField(max_digits=5, decimal_places=2)
-    subtract = models.BooleanField(default=False)
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+    percentage = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        verbose_name=_('Percentage'),
+    )
+    subtract = models.BooleanField(
+        default=False,
+        verbose_name=_('Subtract'),
+    )
 
     def apply(self, amount):
         return apply_taxes([self], amount)
@@ -18,12 +29,20 @@ class Tax(BaseModel):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _('Tax')
+        verbose_name_plural = _('Taxes')
+
 
 class TaxGroup(BaseModel):
-    name = models.CharField(max_length=255)
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
     taxes = models.ManyToManyField(
         Tax,
         related_name='groups',
+        verbose_name=_('Taxes'),
     )
 
     def apply(self, amount):
@@ -33,6 +52,10 @@ class TaxGroup(BaseModel):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _('Tax Group')
+        verbose_name_plural = _('Tax Groups')
 
 
 def apply_taxes(taxes: list[Tax], amount, return_difference=False):

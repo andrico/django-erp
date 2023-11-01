@@ -8,13 +8,25 @@ from erp.base_model import BaseModel
 
 
 class Product(BaseModel):
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+    description = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name=_('Description'),
+    )
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name=_('Price'),
+    )
     categories = models.ManyToManyField(
         'ProductCategory',
         related_name='products',
         blank=True,
+        verbose_name=_('Categories'),
     )
     tax = HistoricForeignKey(
         'tax.Tax',
@@ -22,6 +34,7 @@ class Product(BaseModel):
         related_name='invoice_items',
         default=None,
         null=True,
+        verbose_name=_('Tax'),
     )
 
     variant_of = HistoricForeignKey(
@@ -30,6 +43,7 @@ class Product(BaseModel):
         related_name='variants',
         blank=True,
         null=True,
+        verbose_name=_('Variant Of'),
     )
 
     history = HistoricalRecords()
@@ -40,15 +54,26 @@ class Product(BaseModel):
 
         return self.name
 
+    class Meta:
+        verbose_name = _('Product')
+        verbose_name_plural = _('Products')
+
 
 class ProductImage(BaseModel):
     product = HistoricForeignKey(
         Product,
         on_delete=models.CASCADE,
         related_name='images',
+        verbose_name=_('Product'),
     )
-    image = models.ImageField(upload_to='product_images')
-    is_primary = models.BooleanField(default=False)
+    image = models.ImageField(
+        upload_to='product_images',
+        verbose_name=_('Image'),
+    )
+    is_primary = models.BooleanField(
+        default=False,
+        verbose_name=_('Is Primary'),
+    )
 
     history = HistoricalRecords()
 
@@ -66,6 +91,8 @@ class ProductImage(BaseModel):
                 name='unique_is_primary',
             )
         ]
+        verbose_name = _('Product Image')
+        verbose_name_plural = _('Product Images')
 
 
 class ProductOption(BaseModel):
@@ -73,9 +100,16 @@ class ProductOption(BaseModel):
         Product,
         on_delete=models.CASCADE,
         related_name='options',
+        verbose_name=_('Product'),
     )
-    name = models.CharField(max_length=255)
-    value = models.CharField(max_length=255)
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+    value = models.CharField(
+        max_length=255,
+        verbose_name=_('Value'),
+    )
 
     history = HistoricalRecords()
 
@@ -88,19 +122,28 @@ class ProductOption(BaseModel):
 
 
 class ProductCategory(BaseModel):
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+    description = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name=_('Description'),
+    )
     parent = HistoricForeignKey(
         'self',
         on_delete=models.CASCADE,
         related_name='children',
         blank=True,
         null=True,
+        verbose_name=_('Parent'),
     )
     image = models.ImageField(
         upload_to='product_category_images',
         blank=True,
         null=True,
+        verbose_name=_('Image'),
     )
 
     history = HistoricalRecords()
@@ -114,8 +157,15 @@ class ProductCategory(BaseModel):
 
 
 class ListPrice(BaseModel):
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
+    name = models.CharField(
+        max_length=255,
+        verbose_name=_('Name'),
+    )
+    description = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name=_('Description'),
+    )
 
     history = HistoricalRecords()
 
@@ -132,15 +182,27 @@ class ProductPrice(BaseModel):
         Product,
         on_delete=models.CASCADE,
         related_name='prices',
+        verbose_name=_('Product'),
     )
     list_price = HistoricForeignKey(
         ListPrice,
         on_delete=models.CASCADE,
         related_name='prices',
+        verbose_name=_('List Price'),
     )
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    valid_from = models.DateTimeField()
-    valid_to = models.DateTimeField(blank=True, null=True)
+    price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        verbose_name=_('Price'),
+    )
+    valid_from = models.DateTimeField(
+        verbose_name=_('Valid From'),
+    )
+    valid_to = models.DateTimeField(
+        blank=True,
+        null=True,
+        verbose_name=_('Valid To'),
+    )
 
     history = HistoricalRecords()
 

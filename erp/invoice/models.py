@@ -21,21 +21,39 @@ class Invoice(BaseModel):
         'customer.Customer',
         on_delete=models.CASCADE,
         related_name='invoices',
+        verbose_name=_('Customer'),
     )
-    invoice_number = models.IntegerField()
-    date = models.DateField()
+    invoice_number = models.IntegerField(
+        verbose_name=_('Invoice Number'),
+    )
+    date = models.DateField(
+        verbose_name=_('Date'),
+    )
     due_date = models.DateField(
         blank=True,
         null=True,
+        verbose_name=_('Due Date'),
     )
-    paid = models.BooleanField(default=False)
-    paid_date = models.DateField(blank=True, null=True)
-    notes = models.TextField(blank=True, null=True)
+    paid = models.BooleanField(
+        default=False,
+        verbose_name=_('Paid'),
+    )
+    paid_date = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name=_('Paid Date'),
+    )
+    notes = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name=_('Notes'),
+    )
 
     taxes = models.ManyToManyField(
         'tax.Tax',
         related_name='invoices',
         blank=True,
+        verbose_name=_('Taxes'),
     )
 
     @property
@@ -53,6 +71,7 @@ class Invoice(BaseModel):
             day=self.date.day,
             invoice_number=f'{self.invoice_number : 08d}',
         ).replace(' ', '')
+    formatted_invoice_number.fget.short_description = _('Invoice Number')
 
     history = HistoricalRecords(inherit=True)
 
@@ -69,6 +88,7 @@ class Invoice(BaseModel):
 
         total += total_taxes
         return round(total, 2)
+    total.fget.short_description = _('Total')
 
     @property
     def subtotal(self):
@@ -76,6 +96,7 @@ class Invoice(BaseModel):
         for item in self.items.all():
             subtotal += item.subtotal
         return round(subtotal, 2)
+    subtotal.fget.short_description = _('Subtotal')
 
     def __str__(self):
         return f'Invoice: {self.formatted_invoice_number}'
@@ -132,28 +153,36 @@ class InvoiceItem(BaseModel):
         'invoice.Invoice',
         on_delete=models.CASCADE,
         related_name='items',
+        verbose_name=_('Invoice'),
     )
     product = HistoricForeignKey(
         'product.Product',
         on_delete=models.CASCADE,
         related_name='invoice_items',
+        verbose_name=_('Product'),
     )
     discount = models.DecimalField(
         max_digits=5,
         decimal_places=2,
         help_text=_('Discount in percentage'),
         default=0,
+        verbose_name=_('Discount'),
     )
 
-    quantity = models.PositiveIntegerField()
+    quantity = models.PositiveIntegerField(
+        default=1,
+        verbose_name=_('Quantity'),
+    )
 
     @property
     def price(self):
         return get_product_price(self.product.history.as_of(self.created))
+    price.fget.short_description = _('Price')
 
     @property
     def subtotal(self):
         return round(self.quantity * self.price * (1 - self.discount / 100), 2)
+    subtotal.fget.short_description = _('Subtotal')
 
     @property
     def total(self):
@@ -174,6 +203,7 @@ class InvoiceItem(BaseModel):
             return round(self.subtotal, 2)
 
         return round(tax.apply(self.subtotal), 2)
+    total.fget.short_description = _('Total')
 
     history = HistoricalRecords()
 
