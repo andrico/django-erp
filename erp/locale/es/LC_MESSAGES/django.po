@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-01 09:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: erp/company/admin.py:23
+msgid "Chain"
+msgstr "Cadena"
+
+#: erp/company/admin.py:27 erp/customer/admin.py:15
+msgid "Address"
+msgstr "Domicilio"
+
+#: erp/company/admin.py:28 erp/customer/admin.py:16
+msgid "Fiscal Data"
+msgstr "Información Fiscal"
+
+#: erp/company/admin.py:29 erp/customer/admin.py:17 erp/invoice/admin.py:33
+#: erp/invoice/admin.py:90
+msgid "Notes"
+msgstr "Notas"
+
+#: erp/company/models.py:16 erp/customer/models.py:16
+msgid "Tax Number for invoices"
+msgstr "CIF / NIF para facturas"
+
+#: erp/company/models.py:67
+#, python-brace-format
+msgid "Format: {year}-{month}-{day}-{invoice_number}"
+msgstr "Formato: {year}-{month}-{day}-{invoice_number}"
+
+#: erp/invoice/admin.py:32 erp/invoice/admin.py:89
+msgid "Payment"
+msgstr "Pago"
+
+#: erp/invoice/admin.py:41 erp/invoice/admin.py:43
+msgid "Download"
+msgstr "Descargar"
+
+#: erp/invoice/models.py:90
+#, python-brace-format
+msgid "Date must be after {latest_invoice.date}"
+msgstr "La fecha debe ser posterior a {latest_invoice.date}"
+
+#: erp/invoice/models.py:103
+msgid "Invoice"
+msgstr "Factura"
+
+#: erp/invoice/models.py:104
+msgid "Invoices"
+msgstr "Facturas"
+
+#: erp/invoice/models.py:144
+msgid "Discount in percentage"
+msgstr "Descuento en porcentaje"
+
+#: erp/invoice/models.py:188
+msgid "Invoice Item"
+msgstr "Item de Factura"
+
+#: erp/invoice/models.py:189
+msgid "Invoice Items"
+msgstr "Items de Factura"
+
+#: erp/product/models.py:86
+msgid "Product Option"
+msgstr "Opción de Producto"
+
+#: erp/product/models.py:87
+msgid "Product Options"
+msgstr "Opciones de Producto"
+
+#: erp/product/models.py:112
+msgid "Product Category"
+msgstr "Categoria de Producto"
+
+#: erp/product/models.py:113
+msgid "Product Categories"
+msgstr "Categorias de Producto"
+
+#: erp/product/models.py:126
+msgid "List Price"
+msgstr "Lista de Precios"
+
+#: erp/product/models.py:127
+msgid "List Prices"
+msgstr "Listas de Precios"
+
+#: erp/product/models.py:151
+msgid "Product Price"
+msgstr "Precio de Producto"
+
+#: erp/product/models.py:152
+msgid "Product Prices"
+msgstr "Precios de Producto"
+
+#: erp/user/admin.py:24
+msgid "Personal info"
+msgstr "Información Personal"
+
+#: erp/user/admin.py:26
+msgid "Permissions"
+msgstr "Permisos"
+
+#: erp/user/admin.py:37
+msgid "Important dates"
+msgstr "Fechas importantes"
+
+#: erp/user/managers.py:13
+msgid "Users must have an email address"
+msgstr "El usuario debe tener una dirección de correo electrónico"
+
+#: erp/user/managers.py:26
+msgid "Superuser must have is_staff=True."
+msgstr "El superusuario debe tener is_staff=True."
+
+#: erp/user/managers.py:28
+msgid "Superuser must have is_superuser=True."
+msgstr "El superusuario debe tener is_superuser=True."
+
+#: erp/user/models.py:16
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
