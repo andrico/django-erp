@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-01 11:54+0100\n"
+"POT-Creation-Date: 2023-11-01 20:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <nicolas.guglielmi@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,36 +18,40 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: erp/company/admin.py:23
+#: erp/base_model.py:20 erp/company/models.py:156
+msgid "Company"
+msgstr "Compañía"
+
+#: erp/company/admin.py:24 erp/company/models.py:144
 msgid "Chain"
 msgstr "Cadena"
 
-#: erp/company/admin.py:27 erp/company/models.py:38 erp/customer/admin.py:15
-#: erp/customer/models.py:34
+#: erp/company/admin.py:28 erp/company/models.py:39 erp/company/models.py:75
+#: erp/customer/admin.py:15 erp/customer/models.py:34
 msgid "Address"
 msgstr "Domicilio"
 
-#: erp/company/admin.py:28 erp/customer/admin.py:16
+#: erp/company/admin.py:29 erp/customer/admin.py:16
 msgid "Fiscal Data"
 msgstr "Información Fiscal"
 
-#: erp/company/admin.py:29 erp/company/models.py:43 erp/customer/admin.py:17
-#: erp/customer/models.py:39 erp/invoice/admin.py:33 erp/invoice/admin.py:90
-#: erp/invoice/models.py:49
+#: erp/company/admin.py:30 erp/company/models.py:44 erp/company/models.py:67
+#: erp/customer/admin.py:17 erp/customer/models.py:39 erp/invoice/admin.py:45
+#: erp/invoice/admin.py:102 erp/invoice/models.py:49
 msgid "Notes"
 msgstr "Notas"
 
-#: erp/company/models.py:14 erp/customer/models.py:12 erp/product/models.py:13
-#: erp/product/models.py:107 erp/product/models.py:127
-#: erp/product/models.py:162 erp/tax/models.py:12 erp/tax/models.py:40
+#: erp/company/models.py:14 erp/company/models.py:107 erp/customer/models.py:12
+#: erp/product/models.py:13 erp/product/models.py:109 erp/product/models.py:131
+#: erp/product/models.py:166 erp/tax/models.py:12 erp/tax/models.py:40
 msgid "Name"
 msgstr "Nombre"
 
-#: erp/company/models.py:19 erp/customer/models.py:17
+#: erp/company/models.py:19 erp/company/models.py:91 erp/customer/models.py:17
 msgid "Email"
 msgstr "Correo Electrónico"
 
-#: erp/company/models.py:25
+#: erp/company/models.py:25 erp/company/models.py:115
 msgid "Fantasy Name"
 msgstr "Nombre Fantasía"
 
@@ -55,30 +59,39 @@ msgstr "Nombre Fantasía"
 msgid "Tax Number for invoices"
 msgstr "CIF / NIF para facturas"
 
-#: erp/company/models.py:35 erp/customer/models.py:29
+#: erp/company/models.py:30 erp/company/models.py:99
+msgid "Tax Number"
+msgstr "CIF / NIF"
+
+#: erp/company/models.py:36 erp/company/models.py:83 erp/customer/models.py:29
 msgid "Phone Number"
 msgstr "Número de Teléfono"
 
-#: erp/company/models.py:49
+#: erp/company/models.py:50 erp/company/models.py:59
 msgid "Logo"
 msgstr "Logo"
 
-#: erp/company/models.py:110
+#: erp/company/models.py:119
 #, python-brace-format
 msgid "Format: {year}-{month}-{day}-{invoice_number}"
 msgstr "Formato: {year}-{month}-{day}-{invoice_number}"
 
-#: erp/company/models.py:140
-msgid "Company"
-msgstr "Compañía"
+#: erp/company/models.py:121
+msgid "Format Invoice Number"
+msgstr "Formato de Número de Factura"
 
-#: erp/company/models.py:141
-msgid "Companies"
-msgstr "Compañías"
+#: erp/company/models.py:128 erp/invoice/models.py:56 erp/tax/models.py:34
+#: erp/tax/models.py:45
+msgid "Taxes"
+msgstr "Impuestos"
 
-#: erp/customer/models.py:46
+#: erp/company/models.py:135 erp/customer/models.py:46
 msgid "Users"
 msgstr "Usuarios"
+
+#: erp/company/models.py:157
+msgid "Companies"
+msgstr "Compañías"
 
 #: erp/customer/models.py:55 erp/invoice/models.py:24
 msgid "Customer"
@@ -88,11 +101,11 @@ msgstr "Cliente"
 msgid "Customers"
 msgstr "Clientes"
 
-#: erp/invoice/admin.py:32 erp/invoice/admin.py:89
+#: erp/invoice/admin.py:44 erp/invoice/admin.py:101
 msgid "Payment"
 msgstr "Pago"
 
-#: erp/invoice/admin.py:41 erp/invoice/admin.py:43
+#: erp/invoice/admin.py:53 erp/invoice/admin.py:55
 msgid "Download"
 msgstr "Descargar"
 
@@ -116,10 +129,6 @@ msgstr "Pagado"
 msgid "Paid Date"
 msgstr "Fecha de Pago"
 
-#: erp/invoice/models.py:56 erp/tax/models.py:34 erp/tax/models.py:45
-msgid "Taxes"
-msgstr "Impuestos"
-
 #: erp/invoice/models.py:91 erp/invoice/models.py:206
 msgid "Total"
 msgstr "Total"
@@ -142,9 +151,9 @@ msgid "Invoices"
 msgstr "Facturas"
 
 #: erp/invoice/models.py:162 erp/product/models.py:58 erp/product/models.py:67
-#: erp/product/models.py:103 erp/product/models.py:185
+#: erp/product/models.py:105 erp/product/models.py:189
 msgid "Product"
-msgstr "Productos"
+msgstr "Producto"
 
 #: erp/invoice/models.py:167
 msgid "Discount in percentage"
@@ -158,7 +167,7 @@ msgstr "Descuento"
 msgid "Quantity"
 msgstr "Cantidad"
 
-#: erp/invoice/models.py:180 erp/product/models.py:23 erp/product/models.py:196
+#: erp/invoice/models.py:180 erp/product/models.py:23 erp/product/models.py:200
 msgid "Price"
 msgstr "Precio"
 
@@ -170,7 +179,15 @@ msgstr "Item de Factura"
 msgid "Invoice Items"
 msgstr "Items de Factura"
 
-#: erp/product/models.py:18 erp/product/models.py:132 erp/product/models.py:167
+#: erp/product/admin.py:88 erp/product/admin.py:96
+msgid "Add Variant"
+msgstr "Agregar Variante"
+
+#: erp/product/admin.py:104
+msgid "Variants"
+msgstr "Variantes"
+
+#: erp/product/models.py:18 erp/product/models.py:136 erp/product/models.py:171
 msgid "Description"
 msgstr "Descripción"
 
@@ -190,7 +207,7 @@ msgstr "Variante de"
 msgid "Products"
 msgstr "Productos"
 
-#: erp/product/models.py:71 erp/product/models.py:146
+#: erp/product/models.py:71 erp/product/models.py:150
 msgid "Image"
 msgstr "Imagen"
 
@@ -198,59 +215,59 @@ msgstr "Imagen"
 msgid "Is Primary"
 msgstr "Es Primario"
 
-#: erp/product/models.py:94
+#: erp/product/models.py:96
 msgid "Product Image"
 msgstr "Imagen de Producto"
 
-#: erp/product/models.py:95
+#: erp/product/models.py:97
 msgid "Product Images"
 msgstr "Imágenes de Producto"
 
-#: erp/product/models.py:111
+#: erp/product/models.py:113
 msgid "Value"
 msgstr "Valor"
 
-#: erp/product/models.py:120
+#: erp/product/models.py:124
 msgid "Product Option"
 msgstr "Opción de Producto"
 
-#: erp/product/models.py:121
+#: erp/product/models.py:125
 msgid "Product Options"
 msgstr "Opciones de Producto"
 
-#: erp/product/models.py:140
+#: erp/product/models.py:144
 msgid "Parent"
 msgstr "Padre"
 
-#: erp/product/models.py:155
+#: erp/product/models.py:159
 msgid "Product Category"
 msgstr "Categoria de Producto"
 
-#: erp/product/models.py:156
+#: erp/product/models.py:160
 msgid "Product Categories"
 msgstr "Categorias de Producto"
 
-#: erp/product/models.py:176 erp/product/models.py:191
+#: erp/product/models.py:180 erp/product/models.py:195
 msgid "List Price"
 msgstr "Lista de Precios"
 
-#: erp/product/models.py:177
+#: erp/product/models.py:181
 msgid "List Prices"
 msgstr "Listas de Precios"
 
-#: erp/product/models.py:199
+#: erp/product/models.py:203
 msgid "Valid From"
 msgstr "Válido Desde"
 
-#: erp/product/models.py:204
+#: erp/product/models.py:208
 msgid "Valid To"
 msgstr "Válido Hasta"
 
-#: erp/product/models.py:213
+#: erp/product/models.py:219
 msgid "Product Price"
 msgstr "Precio de Producto"
 
-#: erp/product/models.py:214
+#: erp/product/models.py:220
 msgid "Product Prices"
 msgstr "Precios de Producto"
 

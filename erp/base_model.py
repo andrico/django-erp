@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext as _
 from model_utils.models import (
     QueryManager,
     SoftDeletableModel,
@@ -16,6 +17,7 @@ class BaseModel(CloneMixin, TimeStampedModel, SoftDeletableModel):
         'company.Company',
         on_delete=models.CASCADE,
         related_name='%(class)ss',
+        verbose_name=_('Company'),
     )
 
     class Meta:
